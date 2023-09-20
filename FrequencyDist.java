@@ -1,9 +1,7 @@
-public class Classes {
-    private int width;
+public class FrequencyDist {
     private ClassInterval[] classes;
 
-    Classes(int[] dataSet, int width, int classCount, int minimum){
-        this.width = width;
+    FrequencyDist(int[] dataSet, int width, int classCount, int minimum){
         classes = new ClassInterval[classCount];
         addClasses(width, classCount, minimum);
         addFrequencies(dataSet);
@@ -38,7 +36,7 @@ public class Classes {
         System.out.printf("%-15s %-15s %-15.3f %-15.1f\n", "", "Sum = " + getTotalFrequencies(), getTotalRelFreq(), getTotalPct());
     }
 
-    public void addFrequencies(int[] dataSet){
+    private void addFrequencies(int[] dataSet){
         int x, a, b;
         for(int i = 0; i < dataSet.length; i++){
             x = dataSet[i];
@@ -53,14 +51,14 @@ public class Classes {
         }
     }
 
-    public void getFrequencies(){
+    private void getFrequencies(){
         System.out.println("\n    Frequencies");
         for(int i = 0; i < classes.length; i++){
             System.out.println("    " + classes[i].getTally());
         }
     }
 
-    public int getTotalFrequencies(){
+    private int getTotalFrequencies(){
         int sum = 0;
         for(int i = 0 ; i < classes.length; i++){
             sum+= classes[i].getTally();
@@ -68,7 +66,7 @@ public class Classes {
         return sum;
     }
 
-    public double getTotalRelFreq(){
+    private double getTotalRelFreq(){
         double sum = 0;
         for(int i = 0 ; i < classes.length; i++){
             sum+= classes[i].getRelFreq();
@@ -77,7 +75,7 @@ public class Classes {
         return sum;
     }
 
-    public double getTotalCumRelFreq(){
+    private double getTotalCumRelFreq(){
         double sum = 0;
         for(int i = 0 ; i < classes.length; i++){
             sum+= classes[i].getCumFreq();
@@ -85,13 +83,13 @@ public class Classes {
         return sum;
     }
 
-    public void addRelFreq(int length){
+    private void addRelFreq(int length){
         for(int i = 0; i < classes.length; i++){
             classes[i].setRelFreq(length);
         }
     }
 
-    public double getTotalPct(){
+    private double getTotalPct(){
         double sum = 0;
         for(int i = 0 ; i < classes.length; i++){
             sum+= classes[i].getPercentage();
@@ -100,14 +98,14 @@ public class Classes {
         return sum;
     }
 
-    public void addCumFreq(){
+    private void addCumFreq(){
         classes[0].setCumFreq();
         for(int i = 1; i < classes.length; i++){
             classes[i].setCumFreq(classes[i].getTally() + classes[i-1].getCumFreq());
         }
     }
 
-    public void addRelCumFreq(int length){
+    private void addRelCumFreq(int length){
         for(int i = 0; i < classes.length; i++){
             classes[i].setRelCumFreq(length);
         }

@@ -1,4 +1,4 @@
-public class Tester {
+public class FreqDriver {
     public static void main(String[] args){
         int[] dataSet = {102, 124, 108, 86, 103, 82,
                         71, 104, 112, 118, 87, 95,
@@ -25,14 +25,14 @@ public class Tester {
                           136, 198, 152, 133, 230, 187,
         };
 
-        int[] x = dataSet2;
-        int classes = 5;
+        int[] x = dataSet2; // for input
+        int classes = 5; // for input
         printArr(x);
         int high = findHigh(x);
         int low = findLow(x);
         int width = getWidth(high, low, classes);
         System.out.println("width = " + width);
-        Classes CL = new Classes(x, width, classes, low);
+        FrequencyDist CL = new FrequencyDist(x, width, classes, low);
     }
 
     static int getWidth(int high, int low, int classes){
