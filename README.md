@@ -1,5 +1,5 @@
 #Summary
-##This is a small project I made to recreate the assignment we had in out quantitatve methods class. This program can Construct a Frequency Distribution Table, it only takes two inputs, an int array for the data set and an int for the number of classes
+This is a small project I made to recreate the assignment we had in out quantitatve methods class. This program can Construct a Frequency Distribution Table, it only takes two inputs, an int array for the data set and an int for the number of classes
 
 ```
  SET DATA
