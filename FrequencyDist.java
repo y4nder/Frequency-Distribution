@@ -5,35 +5,29 @@ public class FrequencyDist {
         classes = new ClassInterval[classCount];
         addClasses(width, classCount, minimum);
         addFrequencies(dataSet);
-        addRelFreq(dataSet.length);
-        addCumFreq();
+        addCumFreq(); 
         addRelCumFreq(dataSet.length);
-        printTable(classCount);
+        printTable(classCount, dataSet.length);
     }
     
     private void addClasses(int width, int classCount, int minimum){
         int a = minimum;
-        classes[0] = new ClassInterval(); // create a first line class limit
-        classes[0].setA(a);
-        classes[0].setB(a + width - 1);
+        classes[0] = new ClassInterval(a, (a + width - 1)); // create a first line class limit
         for(int i = 1; i < classCount; i++){
-            classes[i] = new ClassInterval();
             a+=width;
-            classes[i].setA(a);
-            classes[i].setB(a + width - 1);
+            classes[i] = new ClassInterval(a, (a + width - 1));
         }
     }
 
-    private void printTable(int classCount){
+    private void printTable(int classCount, int totalData){
         System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", "------------", "---------", "--------", "----------", "-------", "-----------", "--------------");
         System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", "Class Limits", "Frequency", "Rel Freq", "Percentage", "CumFreq", "Rel CumFreq", "Cumulative Pct");
         System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", "------------", "---------", "--------", "----------", "-------", "-----------", "--------------");
         for(int i = 0; i < classCount; i++){
-            System.out.printf("%-15s %-15s %-15.3f %-15.2f %-15s %-15.3f %-15.1f\n",classes[i].getA() +  " - " +  classes[i].getB(), classes[i].getTally(), classes[i].getRelFreq(), classes[i].getPercentage(), 
-                                                                                    classes[i].getCumFreq(), classes[i].getRelCumFreq(), classes[i].getCumPct() );
+            classes[i].getClassData(totalData);
         }
         System.out.printf("%-15s\n", "-------------------------------------------------------------------------------------------------------------");
-        System.out.printf("%-15s %-15s %-15.3f %-15.1f\n", "", "Sum = " + getTotalFrequencies(), getTotalRelFreq(), getTotalPct());
+        System.out.printf("%-15s %-15s %-15.3f %-15.1f\n", "", "Sum = " + getTotalFrequencies(), getTotalRelFreq(totalData), getTotalPct());
     }
 
     private void addFrequencies(int[] dataSet){
@@ -44,17 +38,10 @@ public class FrequencyDist {
                 a = classes[j].getA();
                 b = classes[j].getB();
                 if(x >= a && x <= b){
-                    classes[j].addtally();
+                    classes[j].incrementTally();
                     break;
                 }
             }
-        }
-    }
-
-    private void getFrequencies(){
-        System.out.println("\n    Frequencies");
-        for(int i = 0; i < classes.length; i++){
-            System.out.println("    " + classes[i].getTally());
         }
     }
 
@@ -66,27 +53,13 @@ public class FrequencyDist {
         return sum;
     }
 
-    private double getTotalRelFreq(){
+    private double getTotalRelFreq(int totalData){
         double sum = 0;
         for(int i = 0 ; i < classes.length; i++){
-            sum+= classes[i].getRelFreq();
+            sum+= classes[i].getRelFreq(totalData);
         }
         // return Math.ceil(sum);
         return sum;
-    }
-
-    private double getTotalCumRelFreq(){
-        double sum = 0;
-        for(int i = 0 ; i < classes.length; i++){
-            sum+= classes[i].getCumFreq();
-        }
-        return sum;
-    }
-
-    private void addRelFreq(int length){
-        for(int i = 0; i < classes.length; i++){
-            classes[i].setRelFreq(length);
-        }
     }
 
     private double getTotalPct(){
@@ -94,7 +67,6 @@ public class FrequencyDist {
         for(int i = 0 ; i < classes.length; i++){
             sum+= classes[i].getPercentage();
         }
-        // return Math.ceil(sum);
         return sum;
     }
 
