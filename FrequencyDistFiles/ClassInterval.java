@@ -1,12 +1,18 @@
+package FrequencyDistFiles;
 public class ClassInterval {
-    private int a;
-    private int b;
-    private int tally;
-    private double relativeFrequency;
-    private double percentage;
-    private int cumulativeFrequency;
-    private double relativeCumFreq;
-    private double cumPercentage;
+    protected int a;
+    protected int b;
+    protected int tally;
+    protected double relativeFrequency;
+    protected double percentage;
+    protected int cumulativeFrequency;
+    protected double relativeCumFreq;
+    protected double cumPercentage;
+
+    protected int midpoint;
+    protected int freqMidpoint;
+    protected int distance;
+    protected int freqDistance;
 
     public ClassInterval(int a, int b){
         this.a = a;
@@ -81,8 +87,39 @@ public class ClassInterval {
         setCumPct();
     }
 
+    //new methods for central tendencies
+    public void setMidpoint(){
+        midpoint = (a+b) / 2;
+        setFreqMid();
+    }
+
+    public int getMidpoint(){
+        return midpoint;
+    }
+
+    public void setFreqMid(){
+        freqMidpoint = tally * midpoint;
+    }
+
+    public int getFreqMid(){
+        return freqMidpoint;
+    }
+
+    public void setDistance(int distance){
+        this.distance = distance;
+        setFreqDistance();
+    }
+
+    public void setFreqDistance(){
+        freqDistance = tally * distance;
+    }
+
+    public int getFreqDistance(){
+        return freqDistance;
+    }
+
     public void getClassData(int totalData){
-        System.out.printf("%-15s %-15s %-15.3f %-15.2f %-15s %-15.3f %-15.1f\n",getA() +  " - " +  getB(), getTally(), getRelFreq(totalData), getPercentage(), 
-                                                                                getCumFreq(), getRelCumFreq(totalData), getCumPct() );
+        System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",a +  " - " +  b, tally, midpoint, freqMidpoint,
+                                                                                cumulativeFrequency, distance, freqDistance );
     }
 }
