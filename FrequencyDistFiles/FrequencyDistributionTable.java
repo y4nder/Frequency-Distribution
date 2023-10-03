@@ -142,9 +142,10 @@ public class FrequencyDistributionTable extends FrequencyDistibution{
         tendency.setMeanDeviation(classIntervals[highestFreqIndex].getMidpoint(), getTotalFreqDistances(), totalData, width);
     
         //finding median
-        tendency.setMedian(classIntervals[highestFreqIndex].getA() - 0.5, totalData, getCf(totalData), width, classIntervals[highestFreqIndex].getTally());
+        int i = getCf(totalData);
+        tendency.setMedian(classIntervals[i+1].getA() - 0.5, totalData, classIntervals[i].getCumFreq(), width, classIntervals[i + 1].getTally());
 
-        //finding mode
+        //finding mode 
         int d1 = classIntervals[highestFreqIndex].getTally() - classIntervals[highestFreqIndex - 1].getTally();
         int d2 = classIntervals[highestFreqIndex].getTally() - classIntervals[highestFreqIndex + 1].getTally();
         tendency.setMode(classIntervals[highestFreqIndex].getA() - 0.5, d1, d2, width);
@@ -155,13 +156,11 @@ public class FrequencyDistributionTable extends FrequencyDistibution{
         int cf = classIntervals[0].getCumFreq(); 
         int i = 1;
         while(classIntervals[i].getCumFreq() <= nhalf ){
-            if(i == classIntervals.length- 1) break;
-
+            if(i == classIntervals.length - 1) break;
             cf = classIntervals[i].getCumFreq(); 
             i++;
-
         }
-        return cf;
+        return i - 1;
     }
 
 
